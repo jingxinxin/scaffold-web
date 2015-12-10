@@ -1,4 +1,4 @@
-# My first the test-program of webpack
+# My first test-program of webpack
 
 ## Install
 * `npm install`
@@ -10,7 +10,7 @@
 * yep! The default host address is http://localhost:8080
 
 ## Build compile the version
-* `npm build`
+* `npm run build`
 
 ## Project tree
 ```
