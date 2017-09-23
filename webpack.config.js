@@ -1,77 +1,51 @@
-var path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH, 'app');
-var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
-var TEM_PATH = path.resolve(ROOT_PATH, 'templates');
+const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack           = require('webpack');
 
 module.exports = {
-  entry: {
-    //three entry files app,mobile and vendors
-    'js/index': path.resolve(APP_PATH, 'index.js'),
-    'js/mobile': path.resolve(APP_PATH, 'mobile.js'),
-    //package the need of library to vendors
-    'js/vendors': ['jquery', 'moment']
-  },
-  output: {
-    path: BUILD_PATH,
-    filename: '[name].js'
+  entry  : [ 'babel-polyfill', './src/index' ],
+  output : {
+    path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    //这个使用uglifyJs压缩你的js代码
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/index.html')
     }),
-    //把入口文件里面的数组打包成verdors.js
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'js/vendors.js'),
-    new HtmlwebpackPlugin({
-      title: 'Hello World app',
-      template: path.resolve(TEM_PATH, 'index.html'),
-      filename: 'index.html',
-      chunks: ['js/index', 'vendors'],
-      inject: 'body'
-    }),
-    new HtmlwebpackPlugin({
-      title: 'Hello Mobile app',
-      template: path.resolve(TEM_PATH, 'mobile.html'),
-      filename: 'mobile.html',
-      chunks: ['js/mobile', 'vendors'],
-      inject: 'body'
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
     })
   ],
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true
-  },
-  module: {
-    perLoaders: [{
-      test: /\jsx?$/,
-      include: APP_PATH,
-      loader: 'jshint-loader'
-    }],
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel',
-      include: APP_PATH,
-      exclude: /node_modules/,
-      query: {
-        presets: ['es2015']
+  module : {
+    rules: [
+      {
+        test   : /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader : "babel-loader"
+      },
+      {
+        test: /\.(scss|css)$/,
+        use : [ 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader' ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use : [
+          'file-loader'
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use : [
+          'file-loader'
+        ]
       }
-    }, {
-      test: /\.scss$/,
-      loaders: ['style', 'css', 'sass'],
-      include: APP_PATH
-    }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url?limit=40000'
-    }]
+    ]
   },
-  //deploy the options of jshint to support the check of es6
-  jshint: {
-    "esnext": true
-  },
-  devtool: 'eval-source-map'
+  resolve: {
+    alias     : {
+      containers: path.resolve(__dirname, 'src/containers'),
+      reducers  : path.resolve(__dirname, 'src/reducers'),
+      sagas     : path.resolve(__dirname, 'src/sagas')
+    },
+    extensions: [ '.js', '.jsx' ]
+  }
 };
