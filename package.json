@@ -12,6 +12,7 @@
   "dependencies": {
     "history": "^4.7.2",
     "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
@@ -20,7 +21,8 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-persist": "^4.10.0",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "semantic-ui-react": "^0.73.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -32,10 +34,12 @@
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
     "postcss": "^6.0.11",
+    "postcss-loader": "^2.0.6",
     "redux-logger": "^3.0.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",

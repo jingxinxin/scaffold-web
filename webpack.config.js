@@ -1,6 +1,7 @@
 const path              = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack           = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry  : [ 'babel-polyfill', './src/index' ],
@@ -13,6 +14,10 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
+    }),
+    new ExtractTextPlugin({
+      filename : 'main.css',
+      allChunks: true
     })
   ],
   module : {
@@ -23,8 +28,18 @@ module.exports = {
         loader : "babel-loader"
       },
       {
-        test: /\.(scss|css)$/,
-        use : [ 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader' ]
+        test: /\.css$/,
+        use : ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use     : [ 'css-loader', 'postcss-loader' ]
+        })
+      },
+      {
+        test: /\.scss/,
+        use : ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use     : [ 'css-loader', 'postcss-loader', 'sass-loader' ]
+        })
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -44,8 +59,10 @@ module.exports = {
     alias     : {
       containers: path.resolve(__dirname, 'src/containers'),
       reducers  : path.resolve(__dirname, 'src/reducers'),
-      sagas     : path.resolve(__dirname, 'src/sagas')
+      sagas     : path.resolve(__dirname, 'src/sagas'),
+      components: path.resolve(__dirname, 'src/components'),
+      const     : path.resolve(__dirname, 'src/const')
     },
-    extensions: [ '.js', '.jsx' ]
+    extensions: [ '.js', '.jsx', 'scss' ]
   }
 };

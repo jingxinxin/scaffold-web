@@ -1,0 +1,91 @@
+@import './reset';
+@import './variables';
+
+@mixin WidthHeight($width:1px,$height:1px) {
+  width  : $width;
+  height : $height;
+}
+
+//垂直居中
+@mixin LineHeight($height:1px) {
+  height      : $height;
+  line-height : $height;
+}
+
+//居中大法
+@mixin Center {
+  position  : absolute;
+  top       : 50%;
+  left      : 50%;
+  transform : translate(-50%, -50%);
+}
+
+@mixin Center($horizontal: true, $vertical: true) {
+  position : absolute;
+  @if ($horizontal and $vertical) {
+    top       : 50%;
+    left      : 50%;
+    transform : translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left      : 50%;
+    transform : translate(-50%, 0);
+  } @else if ($vertical) {
+    top       : 50%;
+    transform : translate(0, -50%);
+  }
+}
+
+@mixin executeTime($time:0.25s) {
+  transition         : All $time ease-in-out;
+  -webkit-transition : All $time ease-in-out;
+  -moz-transition    : All $time ease-in-out;
+  -o-transition      : All $time ease-in-out;
+}
+
+//放大动画
+@mixin enlarge($s1:1.2) {
+  transform         : scale($s1);
+  -webkit-transform : scale($s1);
+  -moz-transform    : scale($s1);
+  -o-transform      : scale($s1);
+  -ms-transform     : scale($s1);
+}
+
+// 移动动画
+@mixin move($s1:0,$s2:0) {
+  transform         : translate($s1, $s2);
+  -webkit-transform : translate($s1, $s2);
+  -moz-transform    : translate($s1, $s2);
+  -o-transform      : translate($s1, $s2);
+  -ms-transform     : translate($s1, $s2);
+}
+
+//旋转
+@mixin rotation($deg:360) {
+  transform         : rotate($deg+deg);
+  -webkit-transform : rotate($deg+deg);
+  -moz-transform    : rotate($deg+deg);
+  -o-transform      : rotate($deg+deg);
+  -ms-transform     : rotate($deg+deg);
+}
+
+//移动+放大
+@mixin moveAndEnlarge($s1:0,$s2:0,$s3:1.2) {
+  transform         : translate($s1, $s2) scale($s3);
+  -webkit-transform : translate($s1, $s2) scale($s3);;
+  -moz-transform    : translate($s1, $s2) scale($s3);;
+  -o-transform      : translate($s1, $s2) scale($s3);;
+  -ms-transform     : translate($s1, $s2) scale($s3);;
+}
+
+html,
+body {
+  height  : 100% !important;
+  margin  : 0 !important;
+  padding : 0 !important;
+}
+
+#app {
+  height : 100%;
+  width  : 100%;
+}

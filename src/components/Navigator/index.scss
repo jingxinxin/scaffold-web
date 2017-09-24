@@ -1,0 +1,52 @@
+@import '../../style/common';
+
+.aside-wrapper {
+  .xjf-sidebar.menu {
+    padding-top : $xjf-header-height;
+    overflow    : scroll;
+    //outline: dashed;
+  }
+
+  .theme-default {
+    .menu {
+      padding-left : 10px;
+      .item {
+        .header {
+          color     : rgba(255, 255, 255, 0.9) !important;
+          font-size : 20px;
+        }
+        a {
+          width   : 100%;
+          display : inline-block;
+          @include executeTime(0.5s);
+          &:hover {
+            width            : 110%;
+            background-color : white !important;
+            color            : black !important;
+            @include move(10px, 0);
+          }
+          &.active {
+            color : black !important;
+            @include move(10px, 0);
+            &:hover {
+              color : black !important;
+            }
+          }
+        }
+        &.active {
+          background-color : #ffffff !important;
+          width            : 110%;
+          a {
+            color : black !important;
+            &:hover {
+              background-color : white !important;
+              color            : black !important;
+              @include move(10px, 0);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

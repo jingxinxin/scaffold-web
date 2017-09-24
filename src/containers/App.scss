@@ -1,0 +1,18 @@
+@import '../style/common';
+
+.app-wrapper {
+  .xjf-theme {
+    background-color : $xjf-main-color !important;
+  }
+
+
+    .xjf-sidebar {
+      height : 100%;
+    }
+
+    .xjf-container {
+      margin  : 0 0 $xjf-header-height $xjf-sidebar-width;
+      padding : $xjf-header-height+1rem 3rem 3rem;
+    }
+}
+
